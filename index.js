@@ -1,5 +1,5 @@
 const express = require('express');
-const { encrypt } = require('vigenere-cipher');
+const { encrypt, decrypt } = require('vigenere-cipher');
 const app = express();
 const port = 8000;
 const password = 'password';
@@ -13,6 +13,10 @@ app.get('/encode/:id', (req, res) =>{
     res.send(`${cipherText.toUpperCase()}`);
 });
 
+app.get('/decode/:id', (req, res) => {
+    const plainText = decrypt(req.params.id, password);
+    res.send(`${plainText.toUpperCase()}`);
+});
 
 app.listen(port, () => {
     console.log(`Server running at ${port} port!`)
